@@ -1,0 +1,6 @@
+framework module KeyboardMaster {
+  umbrella header "KeyboardMaster-umbrella.h"
+
+  export *
+  module * { export * }
+}
