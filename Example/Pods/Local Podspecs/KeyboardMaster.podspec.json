@@ -1,0 +1,22 @@
+{
+  "name": "KeyboardMaster",
+  "version": "0.1.0",
+  "summary": "A short description of KeyboardMaster.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/lucas.best.5@gmail.com/KeyboardMaster",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "lucas.best.5@gmail.com": "lucas.best.5@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/lucas.best.5@gmail.com/KeyboardMaster.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "KeyboardMaster/Classes/**/*"
+}
