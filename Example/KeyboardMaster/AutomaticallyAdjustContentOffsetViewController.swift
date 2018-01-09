@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AutomaticallyAdjustContentOffsetViewController: UIViewController, UITextFieldDelegate {
+class AutomaticallyAdjustContentOffsetViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     
     @IBOutlet var scrollView:UIScrollView!
     
@@ -30,4 +30,6 @@ class AutomaticallyAdjustContentOffsetViewController: UIViewController, UITextFi
         textField.resignFirstResponder()
         return true
     }
+    
+    // MARK: UIScrollViewDelegate
 }

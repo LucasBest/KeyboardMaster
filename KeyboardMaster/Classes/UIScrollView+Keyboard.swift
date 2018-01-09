@@ -10,6 +10,7 @@ import UIKit
 public extension UIScrollView{
     private struct ScrollViewMetadata{
         static var contentInsetBeforeKeyboard = [UIScrollView: UIEdgeInsets]()
+        static var keyboardUpForScrollView = [UIScrollView: Bool]()
         static var keyboardGoingUpForScrollView = [UIScrollView: Bool]()
         static var automaticallyAdjustContentOffset = [UIScrollView: Bool]()
         static var keyboardObservers = [UIScrollView: (showObserver:Any, hideObserver:Any)]()
@@ -20,14 +21,16 @@ public extension UIScrollView{
         
         ScrollViewMetadata.automaticallyAdjustContentOffset[self] = automaticallyAdjustContentOffset
         
-        let showObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: nil) { (notification) in
+        let showObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { (notification) in
             ScrollViewMetadata.keyboardGoingUpForScrollView[self] = true
             self.updateKeyboardFrame(from: notification)
+            ScrollViewMetadata.keyboardUpForScrollView[self] = true
         }
         
-        let hideObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: nil) { (notification) in
+        let hideObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { (notification) in
             ScrollViewMetadata.keyboardGoingUpForScrollView[self] = false
             self.updateKeyboardFrame(from: notification)
+            ScrollViewMetadata.keyboardUpForScrollView[self] = false
         }
         
         ScrollViewMetadata.keyboardObservers[self] = (showObserver:showObserver, hideObserver:hideObserver)
@@ -37,15 +40,17 @@ public extension UIScrollView{
         self.removeObservers()
         
         ScrollViewMetadata.contentInsetBeforeKeyboard.removeValue(forKey: self)
+        ScrollViewMetadata.keyboardUpForScrollView.removeValue(forKey: self)
         ScrollViewMetadata.keyboardGoingUpForScrollView.removeValue(forKey: self)
         ScrollViewMetadata.automaticallyAdjustContentOffset.removeValue(forKey: self)
         ScrollViewMetadata.keyboardObservers.removeValue(forKey: self)
     }
     
     private func updateKeyboardFrame(from notification:Notification){
+        let keyboardUp = ScrollViewMetadata.keyboardUpForScrollView[self] ?? false
         let keyboardGoingUp = ScrollViewMetadata.keyboardGoingUpForScrollView[self] ?? false
         
-        if keyboardGoingUp{
+        if !keyboardUp && keyboardGoingUp{
             ScrollViewMetadata.contentInsetBeforeKeyboard = [self : self.contentInset]
         }
         
