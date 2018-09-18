@@ -21,13 +21,13 @@ public extension UIScrollView{
         
         ScrollViewMetadata.automaticallyAdjustContentOffset[self] = automaticallyAdjustContentOffset
         
-        let showObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { (notification) in
+        let showObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { (notification) in
             ScrollViewMetadata.keyboardGoingUpForScrollView[self] = true
             self.updateKeyboardFrame(from: notification)
             ScrollViewMetadata.keyboardUpForScrollView[self] = true
         }
         
-        let hideObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { (notification) in
+        let hideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { (notification) in
             ScrollViewMetadata.keyboardGoingUpForScrollView[self] = false
             self.updateKeyboardFrame(from: notification)
             ScrollViewMetadata.keyboardUpForScrollView[self] = false
@@ -54,7 +54,7 @@ public extension UIScrollView{
             ScrollViewMetadata.contentInsetBeforeKeyboard = [self : self.contentInset]
         }
         
-        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect{
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect{
             let convertedKeyboardFrame = self.superview?.convert(keyboardFrame, from: nil) ?? keyboardFrame
             
             let intersectionRect = self.frame.intersection(convertedKeyboardFrame)
@@ -96,8 +96,8 @@ public extension UIScrollView{
     
     private func removeObservers(){
         if let observers = ScrollViewMetadata.keyboardObservers[self]{
-            NotificationCenter.default.removeObserver(observers.showObserver, name: Notification.Name.UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.removeObserver(observers.hideObserver, name: Notification.Name.UIKeyboardWillHide, object: nil)
+            NotificationCenter.default.removeObserver(observers.showObserver, name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.removeObserver(observers.hideObserver, name: UIResponder.keyboardWillHideNotification, object: nil)
         }
     }
 }

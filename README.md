@@ -18,7 +18,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-KeyboardMaster is built with Swift 4 and set to run on devices targeting iOS 8 and later.
+KeyboardMaster is built with Swift 4.2 and set to run on devices targeting iOS 8 and later.
 
 ## Installation
 
