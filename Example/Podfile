@@ -1,11 +1,12 @@
+platform:ios, '10.0'
 use_frameworks!
+
+pod 'SwiftLint'
 
 target 'KeyboardMaster_Example' do
   pod 'KeyboardMaster', :path => '../'
 
   target 'KeyboardMaster_Tests' do
     inherit! :search_paths
-
-    
   end
 end

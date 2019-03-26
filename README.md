@@ -16,10 +16,6 @@ You can also optionally pass the flag `automaticallyAdjustContentOffset:true` to
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
-
-KeyboardMaster is built with Swift 4.2 and set to run on devices targeting iOS 8 and later.
-
 ## Installation
 
 KeyboardMaster is available through [CocoaPods](http://cocoapods.org). To install

@@ -1,0 +1,20 @@
+disabled_rules:
+  - force_cast
+  - nesting
+  - line_length
+  - multiple_closures_with_trailing_closure
+  - statement_position
+  - void_return
+  - identifier_name
+  - type_name
+  - function_parameter_count
+  - trailing_comma
+  - type_body_length
+  - function_body_length
+  - file_length
+  - generic_type_name
+  - cyclomatic_complexity
+included:
+  - ../KeyboardMaster
+trailing_comma:
+  mandatory_comma: true
