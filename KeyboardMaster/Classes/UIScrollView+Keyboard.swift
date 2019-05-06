@@ -11,7 +11,6 @@ public extension UIScrollView {
     private struct ScrollViewMetadata {
         static var contentInsetBeforeKeyboard = [UIScrollView: UIEdgeInsets]()
         static var keyboardUpForScrollView = [UIScrollView: Bool]()
-        static var keyboardGoingUpForScrollView = [UIScrollView: Bool]()
         static var automaticallyAdjustContentOffset = [UIScrollView: Bool]()
         static var keyboardObservers = [UIScrollView: (showObserver: Any, hideObserver: Any)]()
     }
@@ -22,14 +21,12 @@ public extension UIScrollView {
         ScrollViewMetadata.automaticallyAdjustContentOffset[self] = automaticallyAdjustContentOffset
 
         let showObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { (notification) in
-            ScrollViewMetadata.keyboardGoingUpForScrollView[self] = true
-            self.updateKeyboardFrame(from: notification)
+            self.updateKeyboardFrame(from: notification, keyboardGoingUp: true)
             ScrollViewMetadata.keyboardUpForScrollView[self] = true
         }
 
         let hideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { (notification) in
-            ScrollViewMetadata.keyboardGoingUpForScrollView[self] = false
-            self.updateKeyboardFrame(from: notification)
+            self.updateKeyboardFrame(from: notification, keyboardGoingUp: false)
             ScrollViewMetadata.keyboardUpForScrollView[self] = false
         }
 
@@ -41,14 +38,12 @@ public extension UIScrollView {
 
         ScrollViewMetadata.contentInsetBeforeKeyboard.removeValue(forKey: self)
         ScrollViewMetadata.keyboardUpForScrollView.removeValue(forKey: self)
-        ScrollViewMetadata.keyboardGoingUpForScrollView.removeValue(forKey: self)
         ScrollViewMetadata.automaticallyAdjustContentOffset.removeValue(forKey: self)
         ScrollViewMetadata.keyboardObservers.removeValue(forKey: self)
     }
 
-    private func updateKeyboardFrame(from notification: Notification) {
+    private func updateKeyboardFrame(from notification: Notification, keyboardGoingUp: Bool) {
         let keyboardUp = ScrollViewMetadata.keyboardUpForScrollView[self] ?? false
-        let keyboardGoingUp = ScrollViewMetadata.keyboardGoingUpForScrollView[self] ?? false
 
         if !keyboardUp && keyboardGoingUp {
             ScrollViewMetadata.contentInsetBeforeKeyboard = [self: self.contentInset]
@@ -61,7 +56,13 @@ public extension UIScrollView {
 
             var newContentInset = self.contentInset
 
-            let newContentInsetBottom = self.frame.origin.y + self.frame.size.height - intersectionRect.origin.y
+            var newContentInsetBottom = self.frame.origin.y + self.frame.size.height - intersectionRect.origin.y
+
+            if #available(iOS 11, *) {
+                if self.adjustedContentInset.bottom != self.contentInset.bottom {
+                    newContentInsetBottom -= self.safeAreaInsets.bottom
+                }
+            }
 
             if newContentInsetBottom > 0 {
                 newContentInset.bottom = newContentInsetBottom

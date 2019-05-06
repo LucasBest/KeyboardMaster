@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'KeyboardMaster'
-  s.version          = '1.1.0'
+  s.version          = '1.2.0'
   s.summary          = 'KeyboardMaster is a UIScollView extension intended to make it easier to manage the iOS keyboard.'
 
   s.description      = <<-DESC
