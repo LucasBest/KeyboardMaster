@@ -45,6 +45,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		9372B66D8065DF5267178A80 /* Pods-KeyboardMaster_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeyboardMaster_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KeyboardMaster_Tests/Pods-KeyboardMaster_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C1AC1E91FE01D5E002416CB /* AutomaticallyAdjustContentOffsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticallyAdjustContentOffsetViewController.swift; sourceTree = "<group>"; };
+		9C1D0251234C2E4300D7FA7D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		D1FC2BBB87CC997E2454A782 /* Pods-KeyboardMaster_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeyboardMaster_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KeyboardMaster_Example/Pods-KeyboardMaster_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D7A8ED54286C081435335748 /* Pods-KeyboardMaster_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeyboardMaster_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeyboardMaster_Tests/Pods-KeyboardMaster_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E261620630B9C7EB7225DB5D /* Pods_KeyboardMaster_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KeyboardMaster_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +84,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				9C1D0250234C2E0D00D7FA7D /* Swift Package Manager */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for KeyboardMaster */,
 				607FACE81AFB9204008FA782 /* Tests */,
@@ -160,6 +162,14 @@
 				D7A8ED54286C081435335748 /* Pods-KeyboardMaster_Tests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9C1D0250234C2E0D00D7FA7D /* Swift Package Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9C1D0251234C2E4300D7FA7D /* Package.swift */,
+			);
+			name = "Swift Package Manager";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

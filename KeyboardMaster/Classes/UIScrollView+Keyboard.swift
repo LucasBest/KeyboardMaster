@@ -7,6 +7,7 @@
 
 import UIKit
 
+@available(iOS 10.0, *)
 public extension UIScrollView {
     private struct ScrollViewMetadata {
         static var contentInsetBeforeKeyboard = [UIScrollView: UIEdgeInsets]()
